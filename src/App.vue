@@ -1,28 +1,67 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="card">
+        <div class="cycles">
+          <p>Cycles 0</p>
+        </div>
+        <div class="timer">
+          <p>00:00</p>
+        </div>
+
+        <div class="buttons">
+          <button>Play</button>
+          <button>Restart</button>
+        </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App"
+};
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background: #353f4b;
+  color: #fff;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+  width: 100%;
+  /* centering card inside app */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card{
+  background: #292f3b;
+  width: 20%;
+  height: 50%;
+  border-radius: 20px;
+  padding: 20px;
+  /* styling items inside card */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timer{
+  font-weight: 600;
+  font-size: 2rem;
 }
 </style>
