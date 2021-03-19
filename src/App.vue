@@ -1,24 +1,71 @@
 <template>
   <div id="app">
     <div class="card">
-        <div class="cycles">
-          <p>Cycles 0</p>
-        </div>
-        <div class="timer">
-          <p>00:00</p>
-        </div>
+      <div class="cycles">
+        <p>Cycles 0</p>
+      </div>
+      <div class="timer">
+        <!-- get a minute & a second from timer -->
+        <p>{{ Math.floor(timer / 60) }}:{{ Math.floor(timer % 60) }}</p>
+      </div>
 
-        <div class="buttons">
-          <button>Play</button>
-          <button>Restart</button>
-        </div>
+      <div class="buttons">
+        <button v-on:click="start()">Play</button>
+        <button v-on:click="restart()">Restart</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+let counter;
 export default {
-  name: "App"
+  name: "App",
+  data() {
+    return {
+      timer: 10,
+      isWork: true,
+    };
+  },
+  // watch for timer (watcher)
+  watch: {
+    timer: function() {
+      // stop the timer when it reaches to 0
+      if (this.timer < 0){
+        // are we in work session? 
+        if (this.isWork === true){
+          // take a break
+          this.isWork = false
+        }else{ // we are in break session
+          // work again
+          this.isWork = true
+        }
+
+        this.stop()
+
+        this.restart()
+
+        this.start()
+      }
+    }
+  },
+  methods: {
+    start() {
+      // stop the timer
+      this.stop();
+      // create the timer
+      // setInterval is like an infinite loop that runs every second
+      counter = setInterval(() => {
+        this.timer = this.timer - 1;
+      }, 1000);
+    },
+    restart() {
+      this.timer = 10;
+    },
+    stop() {
+      clearInterval(counter);
+    }
+  }
 };
 </script>
 
@@ -47,7 +94,7 @@ body {
   justify-content: center;
 }
 
-.card{
+.card {
   background: #292f3b;
   width: 20%;
   height: 50%;
@@ -60,7 +107,7 @@ body {
   align-items: center;
 }
 
-.timer{
+.timer {
   font-weight: 600;
   font-size: 2rem;
 }
